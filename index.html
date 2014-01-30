@@ -41,7 +41,7 @@ a {
 
 .axis line, .axis path {
   fill: none;
-  stroke: #000;
+  stroke: #ccc;
   shape-rendering: crispEdges;
 }
 
@@ -61,6 +61,7 @@ a {
 
 #tooltip {
   background-color: "#ffffff";
+  opacity:0.7;
   position: absolute;
 }
 
@@ -92,6 +93,10 @@ footer {
 
 body {
   font-family: "Sans-Serif";
+}
+
+#circleText {
+
 }
 
     </style>
@@ -140,13 +145,17 @@ var x = d3.scale.ordinal().rangePoints([0, w], 1),
     y = {},
     dragging = {};
 
-var color = d3.scale.linear()
-    .domain([0, 100])
-    .range(["white", "#7BBF6A"]);
-
 var line = d3.svg.line()          
           .interpolate("monotone"),
-    axis = d3.svg.axis().orient("left").ticks(2),
+    axisLeft = d3.svg.axis()
+            .orient("left")
+            .ticks(8),
+    axisRight = d3.svg.axis()
+            .orient("right")
+            .ticks(8),
+    axis = d3.svg.axis()
+            .orient("left")
+            .ticks(0),
     background,
     foreground;
 
@@ -175,11 +184,32 @@ d3.csv("shanghai_ranking.csv", function(data) {
 
     y[d] = d3.scale.linear()        
         // .domain(d3.extent(data, function(p) { return +p[d]; }))
-        .domain([0, 100])
+        .domain([1, 101])
         .range([0, h]);
 
     return true;
   }));
+
+  countries = ["All"];
+  for (var i = 0; i<data.length; i++) {
+    if (countries.indexOf(data[i]["Country"]) < 0)
+      countries.push(data[i]["Country"]);
+  }
+
+  d3.select("#countriesCombo")
+    .on( "change", function(d) {
+      selectedCountry = $("#countriesCombo").find('option:selected').val();
+      if (getActiveDimensions().length > 0)
+        brush();
+      else
+        filterByCountry(d);
+    })
+    .selectAll("option")
+    .data(countries.sort())
+    .enter()
+    .append("option")
+      .attr("value", function(d) { return d;})
+      .text(function(d) { return d;})     
 
   var nElements = data.length,
       strokeWidth = h / nElements,
@@ -190,6 +220,14 @@ d3.csv("shanghai_ranking.csv", function(data) {
 
   strokeWidth = h / nElements;
 
+  // Add grey background lines for context.
+  background = svg.append("svg:g")
+      .attr("class", "background")
+    .selectAll("path")
+      .data(data)
+    .enter().append("svg:path")
+      .attr("d", path);
+
   // Add blue foreground lines for focus.
   foreground = svg.append("svg:g")
       .attr("class", "foreground")
@@ -199,7 +237,6 @@ d3.csv("shanghai_ranking.csv", function(data) {
       .attr("d", path)
       .attr("stroke-width", strokeWidth)
       .attr("stroke", function(d) {
-        console.log(d)
         return color(d);
       })
     .on("mouseover", function(d) {
@@ -208,8 +245,19 @@ d3.csv("shanghai_ranking.csv", function(data) {
           d3.select(this).style("stroke", "red");
           var sel = d3.select(this);
           sel.moveToFront();
-          // d3.select(this).style("stroke-width", "3");          
-          //this.style.cursor = "hand";
+
+          // console.log(d)
+
+          var circles = d3.selectAll(".circleText")
+            .attr("display", true)
+            .attr("transform", function(p){              
+              return "translate("+x(p)+"," + y[p](d[p]) + ")"
+            })
+
+          circles.selectAll("text")
+            .text(function(p) {
+              return d[p] + ""
+            })
       })
       .on("mousemove", function(){
         // d3.event must be used to retrieve pageY and pageX. While this is not needed in Chrome, it is needed in Firefox
@@ -218,8 +266,8 @@ d3.csv("shanghai_ranking.csv", function(data) {
       .on("mouseout", function(){
           tooltip.style("visibility", "hidden");
           d3.select(this).style("stroke", "steelblue");
-          // d3.select(this).style("stroke-width", "1");
-          //this.style.cursor = "auto";
+         d3.selectAll(".circleText")
+              .attr("display", "none")
         });
 
   // Add a group element for each dimension.
@@ -259,8 +307,15 @@ d3.csv("shanghai_ranking.csv", function(data) {
 
   // Add an axis and title.
   g.append("svg:g")
-      // .attr("class", "axis")
-      // .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+      .attr("class", "axis")
+      .each(function(d, i) {
+        if (i == (dimensions.length - 1))
+          return d3.select(this).call(axisRight.scale(y[d]));
+        else if (i == 0) 
+          d3.select(this).call(axisLeft.scale(y[d])); 
+        else
+          d3.select(this).call(axis.scale(y[d])); 
+      })
     .append("svg:text")
       .attr("text-anchor", "middle")
       .attr("y", -9)
@@ -273,6 +328,27 @@ d3.csv("shanghai_ranking.csv", function(data) {
     .selectAll("rect")
       .attr("x", -8)
       .attr("width", 16);
+
+  var circleElements = svg.selectAll("g circleText")
+      .data(dimensions)
+      .enter()
+      .append("g")
+        .attr("class", "circleText")
+        .attr("display", "none")
+        .attr("transform", function(d){return "translate("+x(d)+",80)"})
+
+  circleElements    
+      .append("circle")
+        // .style("shape-rendering", "crispEdges")
+        .attr("r", 8)
+        .attr("stroke","red")
+        .attr("fill", "white");        
+      
+  circleElements.append("text")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "9px")
+        .style("dominant-baseline", "central")
+        .text("89")
 });
 
 function position(d) {
@@ -286,7 +362,6 @@ function transition(g) {
 
 // Returns the path for a given data point.
 function path(d) {
-  console.log(d)
   return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));          
 }
 

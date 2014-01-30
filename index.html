@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Shanghai Ranking</title>
+    <style type="text/css">
+
+svg {
+  font: 10px sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: steelblue;
+}
+
+.background path {
+  fill: none;
+  stroke: #ccc;
+  stroke-opacity: .4;
+  shape-rendering: crispEdges;
+}
+
+.foreground path {
+  fill: none;
+  /*stroke: steelblue;*/
+  stroke-opacity: .7;  
+}
+
+.active {
+  fill: none;
+  stroke: red;
+  stroke-opacity: .7;
+}
+
+.brush .extent {
+  fill-opacity: .3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.axis line, .axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  text-shadow: 0 1px 0 #fff;
+  cursor: move;
+}
+
+#results {
+  width: 960px;
+  
+}
+
+#container {
+ position: absolute;
+}
+
+#tooltip {
+  background-color: "#ffffff";
+  position: absolute;
+}
+
+table {
+  width: 950px;
+  /*border: 1px solid black;*/
+}
+
+table td {
+  width: 250px;
+}
+
+.centeredTd 
+{
+    text-align:center; 
+    vertical-align:middle;
+    color: #343434;
+    width: 80px;
+    font-size: 15px;    
+}
+
+footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:20px;   /* Height of the footer */
+   background: #eee;
+}
+
+body {
+  font-family: "Sans-Serif";
+}
+
+    </style>
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>       
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+  </head>
+  <body>    
+    <div id="container">
+    <div>
+      <h1>Shanghai ranking</h1>
+      <p>
+        Each line on the visualization represents a University while axes represent different metrics according to the <a href="http://www.topuniversities.com/university-rankings/world-university-rankings/2013">QS Ranking</a>.<br/>
+         Drag the mouse through any of the axes to get a list of the institutions that match the filter. Use as many filters as you want!!
+      </p>      
+    </div>
+    <div>
+      Choose a contry
+      <select id="countriesCombo"></select>
+    </div>
+    <div id="viz"></div>  
+    <p id="numResults">
+    </p>
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="results">
+      <thead>
+        <tr></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    </div>
+    <div id="tooltip"></div>
+   <!--  <footer>&copySiris Academicb 2014</footer> -->
+    <script type="text/javascript">    
+
+var m = [30, 10, 10, 10],
+    w = 960 - m[1] - m[3],
+    h = 700 - m[0] - m[2];
+
+var tooltip = d3.select("#tooltip")
+    //.append("div")
+    .style("visibility", "hidden")
+    .style("background-color", "#ffffff");
+
+var x = d3.scale.ordinal().rangePoints([0, w], 1),
+    y = {},
+    dragging = {};
+
+var color = d3.scale.linear()
+    .domain([0, 100])
+    .range(["white", "#7BBF6A"]);
+
+var line = d3.svg.line()          
+          .interpolate("monotone"),
+    axis = d3.svg.axis().orient("left").ticks(2),
+    background,
+    foreground;
+
+var svg = d3.select("#viz").append("svg:svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+  .append("svg:g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+var filtered, 
+    countries, 
+    selectedCountry = "All";
+
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+  this.parentNode.appendChild(this);
+  });
+};
+
+d3.csv("shanghai_ranking.csv", function(data) {
+
+  // Extract the list of dimensions and create a scale for each.
+  x.domain(dimensions = d3.keys(data[0]).filter(function(d) {
+    if (d == "Country" || d == "University") 
+      return false;
+
+    y[d] = d3.scale.linear()        
+        // .domain(d3.extent(data, function(p) { return +p[d]; }))
+        .domain([0, 100])
+        .range([0, h]);
+
+    return true;
+  }));
+
+  var nElements = data.length,
+      strokeWidth = h / nElements,
+      color = d3.scale.category20();
+      // color = d3.scale.linear()
+      //         .domain([-100, 0, 100])
+      //         .range(["red", "white", "green"]);
+
+  strokeWidth = h / nElements;
+
+  // Add blue foreground lines for focus.
+  foreground = svg.append("svg:g")
+      .attr("class", "foreground")
+    .selectAll("path")
+      .data(data)
+    .enter().append("svg:path")
+      .attr("d", path)
+      .attr("stroke-width", strokeWidth)
+      .attr("stroke", function(d) {
+        console.log(d)
+        return color(d);
+      })
+    .on("mouseover", function(d) {
+          tooltip.html("<font size='2'>" + d["University"] + "</font>");
+          tooltip.style("visibility", "visible");
+          d3.select(this).style("stroke", "red");
+          var sel = d3.select(this);
+          sel.moveToFront();
+          // d3.select(this).style("stroke-width", "3");          
+          //this.style.cursor = "hand";
+      })
+      .on("mousemove", function(){
+        // d3.event must be used to retrieve pageY and pageX. While this is not needed in Chrome, it is needed in Firefox
+        tooltip.style("top", (d3.event.pageY-8)+"px").style("left",(d3.event.pageX+10)+"px");        
+      })
+      .on("mouseout", function(){
+          tooltip.style("visibility", "hidden");
+          d3.select(this).style("stroke", "steelblue");
+          // d3.select(this).style("stroke-width", "1");
+          //this.style.cursor = "auto";
+        });
+
+  // Add a group element for each dimension.
+  var g = svg.selectAll(".dimension")
+      .data(dimensions)
+    .enter().append("svg:g")
+      .attr("class", "dimension")
+      .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
+      .call(d3.behavior.drag()
+        .on("dragstart", function(d) {
+          dragging[d] = this.__origin__ = x(d);
+          background.attr("visibility", "hidden");
+        })
+        .on("drag", function(d) {
+          dragging[d] = Math.min(w, Math.max(0, this.__origin__ += d3.event.dx));
+          foreground.attr("d", path)
+                    .attr("stroke-width", strokeWidth);
+          dimensions.sort(function(a, b) { return position(a) - position(b); });
+          x.domain(dimensions);
+          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
+        })
+        .on("dragend", function(d) {
+          delete this.__origin__;
+          delete dragging[d];
+          transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
+          transition(foreground)
+              .attr("d", path)
+              .attr("stroke-width", strokeWidth);
+          background
+              .attr("d", path)
+              .attr("stroke-width", strokeWidth)
+              .transition()
+              .delay(500)
+              .duration(0)
+              .attr("visibility", null);
+        }));
+
+  // Add an axis and title.
+  g.append("svg:g")
+      // .attr("class", "axis")
+      // .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+    .append("svg:text")
+      .attr("text-anchor", "middle")
+      .attr("y", -9)
+      .text(String);
+
+  // Add and store a brush for each axis.
+  g.append("svg:g")
+      .attr("class", "brush")
+      .each(function(d) { d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brush", brush)); })
+    .selectAll("rect")
+      .attr("x", -8)
+      .attr("width", 16);
+});
+
+function position(d) {
+  var v = dragging[d];
+  return v == null ? x(d) : v;
+}
+
+function transition(g) {
+  return g.transition().duration(500);
+}
+
+// Returns the path for a given data point.
+function path(d) {
+  console.log(d)
+  return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));          
+}
+
+function filterByCountry() {  
+  currentlyVisible = foreground.filter(function() {
+    return d3.select(this).style("display") != "none";
+  });
+
+  //console.log(currentlyVisible)
+
+  foreground.style("display", function(d) {
+    //console.log(d);
+    return currentlyVisible.every(function(p, i) {      
+      if (selectedCountry == "All")
+        return true;
+      else
+        return d["Country"] == selectedCountry;
+    }) ? null : "none";
+  });
+}
+
+function getActiveDimensions() {
+  return dimensions.filter(function(p) { return !y[p].brush.empty(); })
+}
+
+// Handles a brush event, toggling the display of foreground lines.
+function brush() {
+  // console.log("******** BRUSH");
+  var actives = getActiveDimensions(),
+      extents = actives.map(function(p) { return y[p].brush.extent(); });
+
+    
+  foreground.style("display", function(d) {    
+    return actives.every(function(p, i) {      
+      var bool =  extents[i][0] <= d[p] && d[p] <= extents[i][1];
+
+      bool = bool && (selectedCountry == "All" || selectedCountry == d["Country"]);
+      // if (hola != bool)
+      //   console.log("El pais " + d["Country"] + " no està filtrat i hauria")
+      //console.log("Selected country: " + selectedCountry);
+      // console.log("Current country: " + d["Country"])
+    
+      return bool;
+    }) ? null : "none";
+  });
+
+  if (actives.length == 0 && selectedCountry != "All")
+    filterByCountry();
+  // else
+  //   manageFilteredElements();
+}
+
+jQuery.fn.centerWidth = function () {
+    //this.css("position","absolute");
+    // this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+    //                                             $(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+}
+
+$('#container').centerWidth();
+
+$(window).resize(function() {
+        $('#container').centerWidth();
+    });
+    </script>
+  </body>
+</html>

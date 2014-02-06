@@ -1,122 +1,122 @@
-Country,University,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013
-Denmark,Aarhus University,101,101,101,101,101,93,97,98,86,86,86
-USA,Arizona State University,101,101,101,100,96,93,94,81,78,79,81
-Australia,Australian National University,49,53,53,54,57,59,59,59,70,64,66
-USA,Boston University,98,87,81,81,85,83,74,77,76,71,75
-USA,Brown University,49,82,86,85,70,71,69,65,65,65,67
-USA,California Institute of Technology,3,6,6,6,6,6,6,6,6,6,6
-USA,Carnegie Mellon University,61,62,62,56,60,62,59,58,55,51,52
-USA,Case Western Reserve University,51,65,65,70,78,83,87,97,97,99,99
-USA,Columbia University,10,9,7,7,7,7,7,8,8,8,8
-USA,Cornell University,12,12,12,12,12,12,12,12,13,13,13
-USA,Duke University,33,31,31,31,32,33,31,35,35,36,31
-France,École normale supérieure – Paris,101,85,93,99,83,73,70,71,69,73,71
-USA,Emory University,99,101,101,101,101,101,100,100,101,101,101
-Germany,Free University of Berlin,95,101,101,99,83,101,101,101,101,101,101
-Germany,Goethe University Frankfurt,101,101,101,101,101,101,101,101,100,101,101
-USA,Harvard University,1,1,1,1,1,1,1,1,1,1,1
-Israel,Hebrew University of Jerusalem,94,90,90,60,64,65,64,52,57,53,59
-Germany,Humboldt University of Berlin,101,95,95,101,101,101,101,101,101,101,101
-UK,Imperial College London,17,23,23,23,23,27,26,26,24,24,24
-USA,Indiana University Bloomington,101,101,101,97,90,92,93,90,82,84,85
-USA,Johns Hopkins University,24,22,19,20,19,20,19,18,18,17,17
-Sweden,Karolinska Institutet,39,46,45,48,53,51,50,42,44,42,44
-UK,King's College London,75,77,77,83,83,81,65,63,68,68,67
-Japan,Kyoto University,30,21,22,22,22,23,24,24,27,26,26
-Sweden,Lund University,93,92,92,90,97,97,101,101,101,101,101
-USA,Massachusetts Institute of Technology,6,5,5,5,5,5,5,4,3,3,4
-Canada,McGill University,79,61,61,62,63,60,65,61,64,63,58
-Canada,McMaster University,86,88,88,90,87,89,91,88,89,92,92
-USA,Michigan State University,87,80,80,80,80,83,86,86,92,96,92
-Russia,Moscow State University,101,66,66,70,76,70,77,74,77,80,79
-Japan,Nagoya University,68,97,97,98,94,101,82,79,94,96,101
-USA,New York University,55,32,32,29,30,31,32,31,29,27,27
-USA,North Carolina State University,99,101,101,101,101,101,101,101,101,101,101
-USA,Northwestern University,29,30,30,33,29,30,30,29,30,30,30
-USA,Ohio State University,81,73,73,66,61,62,62,59,63,65,65
-Japan,Osaka University,53,54,54,61,67,68,71,75,82,83,85
-USA,Pennsylvania State University,40,43,43,42,43,42,45,43,45,49,54
-USA,Princeton University,7,7,8,8,8,8,8,7,7,7,7
-USA,Purdue University,80,71,71,73,68,65,65,69,61,56,57
-USA,Rice University,61,75,75,87,87,97,99,99,93,91,92
-USA,Rockefeller University,28,29,29,30,30,32,32,34,33,32,34
-USA,Rutgers University,38,44,44,46,47,54,55,54,59,61,61
-USA,Stanford University,2,2,3,3,2,2,2,3,2,2,2
-Sweden,Stockholm University,101,97,97,84,86,86,88,79,81,81,82
-Switzerland,ETH Zurich,25,27,27,27,27,24,23,23,23,23,20
-Germany,Technische Universität München,60,45,52,54,56,57,57,56,47,53,50
-Israel,Technion – Israel Institute of Technology,101,101,101,101,101,101,101,101,101,78,77
-USA,Texas A&M University,70,101,101,88,91,88,88,95,100,93,101
-Japan,Tohoku University,64,69,69,76,76,79,84,84,97,101,101
-Japan,Tokyo Institute of Technology,101,101,101,89,99,101,101,101,101,101,101
-USA,Tufts University,83,99,99,101,101,101,101,101,101,101,101
-USA,University of Arizona,55,76,76,76,74,77,77,78,80,77,78
-Switzerland,University of Basel,96,91,91,81,82,87,85,86,89,85,83
-UK,University of Birmingham,101,93,93,90,92,91,94,99,101,101,101
-Germany,University of Bonn,101,99,99,101,99,97,98,93,94,101,101
-UK,University of Bristol,55,60,60,62,62,61,61,66,70,70,64
-Canada,University of British Columbia,35,36,36,36,36,35,36,36,37,39,40
-USA,"University of California, Berkeley",4,4,4,4,3,3,3,2,4,4,3
-USA,"University of California, Davis",36,42,42,42,43,48,49,46,48,47,47
-USA,"University of California, Irvine",44,55,55,44,45,46,46,46,48,45,45
-USA,"University of California, Los Angeles",15,16,14,14,13,13,13,13,12,12,12
-USA,"University of California, Riverside",88,101,101,101,101,101,101,101,101,101,101
-USA,"University of California, San Diego",14,13,13,13,14,14,14,14,15,15,14
-USA,"University of California, San Francisco",13,17,18,18,18,18,18,18,17,18,18
-USA,"University of California, Santa Barbara",26,35,35,35,35,36,35,32,33,34,35
-UK,University of Cambridge,5,3,2,2,4,4,4,5,5,5,5
-USA,University of Chicago,11,10,9,8,9,9,8,9,9,9,9
-UK,University College London,20,25,26,26,25,22,21,21,20,21,21
-USA,University of Colorado,31,34,34,34,34,34,34,32,32,33,33
-Denmark,University of Copenhagen,65,59,59,56,46,45,43,40,43,44,42
-UK,University of Edinburgh,43,47,47,52,53,55,53,54,53,51,51
-USA,University of Florida,75,67,67,53,51,58,58,68,72,72,71
-Germany,University of Freiburg,101,88,88,93,94,96,101,101,101,99,100
-Switzerland,University of Geneva,101,101,101,101,101,101,101,101,73,69,69
-Belgium,Ghent University,99,101,101,101,101,101,101,90,89,89,85
-Germany,University of Göttingen,91,79,79,85,87,90,90,93,86,101,101
-Netherlands,University of Groningen,84,101,101,101,101,101,101,101,101,101,92
-Germany,Heidelberg University,58,64,64,66,65,67,63,63,62,62,54
-Finland,University of Helsinki,74,72,72,74,73,68,72,72,74,73,76
-USA,University of Illinois at Urbana–Champaign,45,25,25,25,26,26,25,25,25,25,25
-USA,University of Illinois at Chicago,96,101,101,101,101,101,101,101,101,101,101
-USA,University of Iowa,90,101,101,95,97,101,101,101,101,101,101
-Netherlands,Leiden University,78,63,63,72,71,76,72,70,65,73,74
-UK,University of Manchester,89,78,53,50,48,40,41,44,38,40,41
-USA,"University of Maryland, College Park",75,57,57,37,37,37,37,36,38,38,38
-Australia,University of Melbourne,92,82,82,78,79,73,75,62,60,57,54
-USA,"University of Michigan, Ann Arbor",21,19,21,21,21,21,22,22,22,22,23
-USA,"University of Minnesota, Twin Cities",37,33,33,32,33,28,28,28,28,29,29
-Germany,University of Munich,48,51,51,51,53,55,55,52,54,60,61
-USA,University of North Carolina at Chapel Hill,52,56,56,59,58,38,39,41,42,41,43
-UK,University of Nottingham,101,80,80,79,81,82,83,84,85,86,83
-Norway,University of Oslo,63,68,68,68,69,64,65,75,75,67,69
-UK,University of Oxford,9,8,10,10,10,10,10,10,10,10,10
-France,Pierre-and-Marie-Curie University,65,41,41,45,39,42,40,39,41,42,37
-France,University of Paris-Sud 11,72,48,48,64,52,49,43,45,40,37,39
-USA,University of Pennsylvania,18,15,15,15,15,15,15,15,14,14,15
-USA,University of Pittsburgh,53,48,48,48,49,52,50,56,57,58,61
-Australia,University of Queensland,101,101,101,101,101,101,101,101,86,90,85
-Italy,Sapienza University of Rome,70,93,97,100,101,101,101,101,101,101,101
-USA,University of Rochester,72,52,52,74,75,73,77,82,84,86,90
-UK,University of Sheffield,68,69,69,69,72,77,81,88,97,101,101
-USA,University of Southern California,40,48,48,47,50,50,46,46,46,46,47
-France,University of Strasbourg,101,82,82,96,99,101,101,101,101,101,97
-Australia,University of Sydney,101,101,101,101,101,97,94,92,96,93,97
-USA,University of Texas at Austin,47,40,40,39,38,39,38,38,35,35,36
-USA,University of Texas Southwestern Medical Center,34,36,36,38,39,41,48,49,51,48,46
-Japan,University of Tokyo,19,14,20,19,20,19,20,20,21,20,21
-Canada,University of Toronto,23,24,24,24,23,24,27,27,26,27,28
-USA,University of Utah,81,95,95,94,93,79,80,82,79,82,85
-Netherlands,Utrecht University,40,39,39,40,42,47,52,50,48,53,52
-Austria,University of Vienna,84,86,86,101,101,101,101,101,101,101,101
-USA,University of Virginia,67,101,101,101,101,95,91,96,101,101,101
-USA,University of Washington,16,20,17,17,16,16,16,16,16,16,16
-Australia,University of Western Australia,101,101,101,101,101,101,101,101,101,96,91
-USA,University of Wisconsin–Madison,27,18,16,16,17,17,17,17,19,19,19
-Switzerland,University of Zurich,45,57,57,58,58,53,54,51,56,59,60
-Sweden,Uppsala University,59,74,74,65,66,71,76,66,67,73,73
-USA,Vanderbilt University,32,38,38,41,41,42,41,53,52,50,49
-USA,Washington University in St. Louis,22,28,28,28,28,29,29,30,31,31,32
-Israel,Weizmann Institute of Science,101,101,101,101,101,101,101,101,101,93,92
-USA,Yale University,8,11,11,11,11,11,11,11,11,11,11
+University,Country,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013
+Aarhus University,Denmark,101,101,101,101,101,93,97,98,86,86,86
+Arizona State University,USA,101,101,101,100,96,93,94,81,78,79,81
+Emory University,USA,99,101,101,101,101,101,100,100,101,101,101
+Free University of Berlin,Germany,95,101,101,99,83,101,101,101,101,101,101
+Goethe University Frankfurt,Germany,101,101,101,101,101,101,101,101,100,101,101
+Indiana University Bloomington,USA,101,101,101,97,90,92,93,90,82,84,85
+North Carolina State University,USA,99,101,101,101,101,101,101,101,101,101,101
+Technion – Israel Institute of Technology,Israel,101,101,101,101,101,101,101,101,101,78,77
+Texas A&M University,USA,70,101,101,88,91,88,88,95,100,93,101
+Tokyo Institute of Technology,Japan,101,101,101,89,99,101,101,101,101,101,101
+"University of California, Riverside",USA,88,101,101,101,101,101,101,101,101,101,101
+University of Geneva,Switzerland,101,101,101,101,101,101,101,101,73,69,69
+Ghent University,Belgium,99,101,101,101,101,101,101,90,89,89,85
+University of Groningen,Netherlands,84,101,101,101,101,101,101,101,101,101,92
+University of Illinois at Chicago,USA,96,101,101,101,101,101,101,101,101,101,101
+University of Iowa,USA,90,101,101,95,97,101,101,101,101,101,101
+University of Queensland,Australia,101,101,101,101,101,101,101,101,86,90,85
+University of Sydney,Australia,101,101,101,101,101,97,94,92,96,93,97
+University of Virginia,USA,67,101,101,101,101,95,91,96,101,101,101
+University of Western Australia,Australia,101,101,101,101,101,101,101,101,101,96,91
+Weizmann Institute of Science,Israel,101,101,101,101,101,101,101,101,101,93,92
+Harvard University,USA,1,1,1,1,1,1,1,1,1,1,1
+Stanford University,USA,2,2,3,3,2,2,2,3,2,2,2
+University of Cambridge,UK,5,3,2,2,4,4,4,5,5,5,5
+"University of California, Berkeley",USA,4,4,4,4,3,3,3,2,4,4,3
+Massachusetts Institute of Technology,USA,6,5,5,5,5,5,5,4,3,3,4
+California Institute of Technology,USA,3,6,6,6,6,6,6,6,6,6,6
+Princeton University,USA,7,7,8,8,8,8,8,7,7,7,7
+University of Oxford,UK,9,8,10,10,10,10,10,10,10,10,10
+Columbia University,USA,10,9,7,7,7,7,7,8,8,8,8
+University of Chicago,USA,11,10,9,8,9,9,8,9,9,9,9
+Yale University,USA,8,11,11,11,11,11,11,11,11,11,11
+Cornell University,USA,12,12,12,12,12,12,12,12,13,13,13
+"University of California, San Diego",USA,14,13,13,13,14,14,14,14,15,15,14
+University of Tokyo,Japan,19,14,20,19,20,19,20,20,21,20,21
+University of Pennsylvania,USA,18,15,15,15,15,15,15,15,14,14,15
+"University of California, Los Angeles",USA,15,16,14,14,13,13,13,13,12,12,12
+"University of California, San Francisco",USA,13,17,18,18,18,18,18,18,17,18,18
+University of Wisconsin–Madison,USA,27,18,16,16,17,17,17,17,19,19,19
+"University of Michigan, Ann Arbor",USA,21,19,21,21,21,21,22,22,22,22,23
+University of Washington,USA,16,20,17,17,16,16,16,16,16,16,16
+Kyoto University,Japan,30,21,22,22,22,23,24,24,27,26,26
+Johns Hopkins University,USA,24,22,19,20,19,20,19,18,18,17,17
+Imperial College London,UK,17,23,23,23,23,27,26,26,24,24,24
+University of Toronto,Canada,23,24,24,24,23,24,27,27,26,27,28
+University College London,UK,20,25,26,26,25,22,21,21,20,21,21
+University of Illinois at Urbana–Champaign,USA,45,25,25,25,26,26,25,25,25,25,25
+ETH Zurich,Switzerland,25,27,27,27,27,24,23,23,23,23,20
+Washington University in St. Louis,USA,22,28,28,28,28,29,29,30,31,31,32
+Rockefeller University,USA,28,29,29,30,30,32,32,34,33,32,34
+Northwestern University,USA,29,30,30,33,29,30,30,29,30,30,30
+Duke University,USA,33,31,31,31,32,33,31,35,35,36,31
+New York University,USA,55,32,32,29,30,31,32,31,29,27,27
+"University of Minnesota, Twin Cities",USA,37,33,33,32,33,28,28,28,28,29,29
+University of Colorado,USA,31,34,34,34,34,34,34,32,32,33,33
+"University of California, Santa Barbara",USA,26,35,35,35,35,36,35,32,33,34,35
+University of British Columbia,Canada,35,36,36,36,36,35,36,36,37,39,40
+University of Texas Southwestern Medical Center,USA,34,36,36,38,39,41,48,49,51,48,46
+Vanderbilt University,USA,32,38,38,41,41,42,41,53,52,50,49
+Utrecht University,Netherlands,40,39,39,40,42,47,52,50,48,53,52
+University of Texas at Austin,USA,47,40,40,39,38,39,38,38,35,35,36
+Pierre-and-Marie-Curie University,France,65,41,41,45,39,42,40,39,41,42,37
+"University of California, Davis",USA,36,42,42,42,43,48,49,46,48,47,47
+Pennsylvania State University,USA,40,43,43,42,43,42,45,43,45,49,54
+Rutgers University,USA,38,44,44,46,47,54,55,54,59,61,61
+Technische Universität München,Germany,60,45,52,54,56,57,57,56,47,53,50
+Karolinska Institutet,Sweden,39,46,45,48,53,51,50,42,44,42,44
+University of Edinburgh,UK,43,47,47,52,53,55,53,54,53,51,51
+University of Paris-Sud 11,France,72,48,48,64,52,49,43,45,40,37,39
+University of Pittsburgh,USA,53,48,48,48,49,52,50,56,57,58,61
+University of Southern California,USA,40,48,48,47,50,50,46,46,46,46,47
+University of Munich,Germany,48,51,51,51,53,55,55,52,54,60,61
+University of Rochester,USA,72,52,52,74,75,73,77,82,84,86,90
+Australian National University,Australia,49,53,53,54,57,59,59,59,70,64,66
+Osaka University,Japan,53,54,54,61,67,68,71,75,82,83,85
+"University of California, Irvine",USA,44,55,55,44,45,46,46,46,48,45,45
+University of North Carolina at Chapel Hill,USA,52,56,56,59,58,38,39,41,42,41,43
+"University of Maryland, College Park",USA,75,57,57,37,37,37,37,36,38,38,38
+University of Zurich,Switzerland,45,57,57,58,58,53,54,51,56,59,60
+University of Copenhagen,Denmark,65,59,59,56,46,45,43,40,43,44,42
+University of Bristol,UK,55,60,60,62,62,61,61,66,70,70,64
+McGill University,Canada,79,61,61,62,63,60,65,61,64,63,58
+Carnegie Mellon University,USA,61,62,62,56,60,62,59,58,55,51,52
+Leiden University,Netherlands,78,63,63,72,71,76,72,70,65,73,74
+Heidelberg University,Germany,58,64,64,66,65,67,63,63,62,62,54
+Case Western Reserve University,USA,51,65,65,70,78,83,87,97,97,99,99
+Moscow State University,Russia,101,66,66,70,76,70,77,74,77,80,79
+University of Florida,USA,75,67,67,53,51,58,58,68,72,72,71
+University of Oslo,Norway,63,68,68,68,69,64,65,75,75,67,69
+Tohoku University,Japan,64,69,69,76,76,79,84,84,97,101,101
+University of Sheffield,UK,68,69,69,69,72,77,81,88,97,101,101
+Purdue University,USA,80,71,71,73,68,65,65,69,61,56,57
+University of Helsinki,Finland,74,72,72,74,73,68,72,72,74,73,76
+Ohio State University,USA,81,73,73,66,61,62,62,59,63,65,65
+Uppsala University,Sweden,59,74,74,65,66,71,76,66,67,73,73
+Rice University,USA,61,75,75,87,87,97,99,99,93,91,92
+University of Arizona,USA,55,76,76,76,74,77,77,78,80,77,78
+King's College London,UK,75,77,77,83,83,81,65,63,68,68,67
+University of Manchester,UK,89,78,53,50,48,40,41,44,38,40,41
+University of Göttingen,Germany,91,79,79,85,87,90,90,93,86,101,101
+Michigan State University,USA,87,80,80,80,80,83,86,86,92,96,92
+University of Nottingham,UK,101,80,80,79,81,82,83,84,85,86,83
+Brown University,USA,49,82,86,85,70,71,69,65,65,65,67
+University of Melbourne,Australia,92,82,82,78,79,73,75,62,60,57,54
+University of Strasbourg,France,101,82,82,96,99,101,101,101,101,101,97
+École normale supérieure – Paris,France,101,85,93,99,83,73,70,71,69,73,71
+University of Vienna,Austria,84,86,86,101,101,101,101,101,101,101,101
+Boston University,USA,98,87,81,81,85,83,74,77,76,71,75
+McMaster University,Canada,86,88,88,90,87,89,91,88,89,92,92
+University of Freiburg,Germany,101,88,88,93,94,96,101,101,101,99,100
+Hebrew University of Jerusalem,Israel,94,90,90,60,64,65,64,52,57,53,59
+University of Basel,Switzerland,96,91,91,81,82,87,85,86,89,85,83
+Lund University,Sweden,93,92,92,90,97,97,101,101,101,101,101
+University of Birmingham,UK,101,93,93,90,92,91,94,99,101,101,101
+Sapienza University of Rome,Italy,70,93,97,100,101,101,101,101,101,101,101
+Humboldt University of Berlin,Germany,101,95,95,101,101,101,101,101,101,101,101
+University of Utah,USA,81,95,95,94,93,79,80,82,79,82,85
+Nagoya University,Japan,68,97,97,98,94,101,82,79,94,96,101
+Stockholm University,Sweden,101,97,97,84,86,86,88,79,81,81,82
+Tufts University,USA,83,99,99,101,101,101,101,101,101,101,101
+University of Bonn,Germany,101,99,99,101,99,97,98,93,94,101,101

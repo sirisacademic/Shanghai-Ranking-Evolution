@@ -66,12 +66,15 @@ a {
 }
 
 table {
-  width: 950px;
+  padding-bottom: 30px;
+  font-size: 12px;
   /*border: 1px solid black;*/
 }
 
 table td {
-  width: 250px;
+  /*width: 250px;*/
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .centeredTd 
@@ -79,8 +82,8 @@ table td {
     text-align:center; 
     vertical-align:middle;
     color: #343434;
-    width: 80px;
-    font-size: 15px;    
+    width: 40px;
+    /*font-size: 15px;    */
 }
 
 footer {
@@ -92,24 +95,38 @@ footer {
 }
 
 body {
-  font-family: "Sans-Serif";
+  font: 14px sans-serif;
 }
 
-#circleText {
-
+#logo {
+  width: 100px;
+  height: 62px;
+  margin-top: 13px;
+  float: right;
 }
 
     </style>
     <!-- jQuery -->
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>       
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47576620-2', 'sirislab.com');
+  ga('send', 'pageview');
+
+</script>
   </head>
   <body>    
     <div id="container">
+      <img id="logo" src="../../logo_sirislab.png"></img>
     <div>
       <h1>Shanghai ranking</h1>
       <p>
-        Each line on the visualization represents a University while axes represent different metrics according to the <a href="http://www.topuniversities.com/university-rankings/world-university-rankings/2013">QS Ranking</a>.<br/>
+        Each line on the visualization represents the evolution of a University in the <a href="http://en.wikipedia.org/wiki/Academic_Ranking_of_World_Universities">Shanghai Ranking</a>.<br/>
          Drag the mouse through any of the axes to get a list of the institutions that match the filter. Use as many filters as you want!!
       </p>      
     </div>
@@ -129,21 +146,23 @@ body {
     </table>
     </div>
     <div id="tooltip"></div>
-   <!--  <footer>&copySiris Academicb 2014</footer> -->
     <script type="text/javascript">    
 
 var m = [30, 10, 10, 10],
     w = 960 - m[1] - m[3],
-    h = 700 - m[0] - m[2];
+    h = 420 - m[0] - m[2];
 
 var tooltip = d3.select("#tooltip")
-    //.append("div")
     .style("visibility", "hidden")
     .style("background-color", "#ffffff");
 
 var x = d3.scale.ordinal().rangePoints([0, w], 1),
     y = {},
     dragging = {};
+
+var color = d3.scale.linear()
+    .domain([101, 1])
+    .range(["white", "#7BBF6A"]);
 
 var line = d3.svg.line()          
           .interpolate("monotone"),
@@ -167,13 +186,15 @@ var svg = d3.select("#viz").append("svg:svg")
 
 var filtered, 
     countries, 
-    selectedCountry = "All";
+    selectedCountry = "All"
+    sortedKeys = [];
 
 d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
   this.parentNode.appendChild(this);
   });
 };
+
 
 d3.csv("shanghai_ranking.csv", function(data) {
 
@@ -183,12 +204,15 @@ d3.csv("shanghai_ranking.csv", function(data) {
       return false;
 
     y[d] = d3.scale.linear()        
-        // .domain(d3.extent(data, function(p) { return +p[d]; }))
         .domain([1, 101])
         .range([0, h]);
 
     return true;
   }));
+
+  data.sort(function(a,b) {
+      return a["2013"] - b["2013"];
+    });
 
   countries = ["All"];
   for (var i = 0; i<data.length; i++) {
@@ -214,11 +238,33 @@ d3.csv("shanghai_ranking.csv", function(data) {
   var nElements = data.length,
       strokeWidth = h / nElements,
       color = d3.scale.category20();
-      // color = d3.scale.linear()
-      //         .domain([-100, 0, 100])
-      //         .range(["red", "white", "green"]);
 
   strokeWidth = h / nElements;
+
+  d3.selectAll("table")
+    .style("width", (w - 33) + "px")
+    .style("padding-left", "55px")
+
+  sortedKeys = d3.keys(data[0]).sort(function(a,b) {
+    a = (a == "University") ? 100 : a;
+    b = (b == "University") ? 100 : b;
+    a = (a == "Country") ? 1000 : a;
+    b = (b == "Country") ? 1000 : b;
+
+    return a-b;
+  });
+  d3.selectAll("thead tr").selectAll("th")
+    .data(sortedKeys)
+    .enter()
+    .append("th")
+    .attr("class", function(d, i) {
+      if (d != "University")
+        return "centeredTd";
+      else
+        return null;
+    })
+    .style("background-color", "#eeeeee")
+      .text(function(d) { return d; })
 
   // Add grey background lines for context.
   background = svg.append("svg:g")
@@ -256,7 +302,7 @@ d3.csv("shanghai_ranking.csv", function(data) {
 
           circles.selectAll("text")
             .text(function(p) {
-              return d[p] + ""
+              return (d[p] == 101) ? "-" : d[p] + ""
             })
       })
       .on("mousemove", function(){
@@ -349,6 +395,8 @@ d3.csv("shanghai_ranking.csv", function(data) {
         .attr("font-size", "9px")
         .style("dominant-baseline", "central")
         .text("89")
+
+    manageFilteredElements();
 });
 
 function position(d) {
@@ -370,10 +418,7 @@ function filterByCountry() {
     return d3.select(this).style("display") != "none";
   });
 
-  //console.log(currentlyVisible)
-
   foreground.style("display", function(d) {
-    //console.log(d);
     return currentlyVisible.every(function(p, i) {      
       if (selectedCountry == "All")
         return true;
@@ -381,6 +426,8 @@ function filterByCountry() {
         return d["Country"] == selectedCountry;
     }) ? null : "none";
   });
+
+  manageFilteredElements();
 }
 
 function getActiveDimensions() {
@@ -399,10 +446,7 @@ function brush() {
       var bool =  extents[i][0] <= d[p] && d[p] <= extents[i][1];
 
       bool = bool && (selectedCountry == "All" || selectedCountry == d["Country"]);
-      // if (hola != bool)
-      //   console.log("El pais " + d["Country"] + " no està filtrat i hauria")
-      //console.log("Selected country: " + selectedCountry);
-      // console.log("Current country: " + d["Country"])
+
     
       return bool;
     }) ? null : "none";
@@ -410,8 +454,66 @@ function brush() {
 
   if (actives.length == 0 && selectedCountry != "All")
     filterByCountry();
-  // else
-  //   manageFilteredElements();
+  else
+    manageFilteredElements();
+}
+
+function manageFilteredElements() {
+  // Get filtered elements
+  filtered = foreground.filter(function() {
+    return d3.select(this).style("display") != "none";
+  });
+  // console.log("filtered")
+  //console.log(filtered.length)
+
+  //dataTable.fnClearTable();
+  if (filtered.length > 0) {
+    // convert the array of objects into an array of arrays
+    var r = [];
+    filtered.data().forEach(function(d, i) {
+      array = [];
+      for (i = 0; i<sortedKeys.length; i++)
+        array.push(d[sortedKeys[i]])
+      
+      r.push(array);
+
+    });
+
+   //$('#results').dataTable().fnAddData(activeRows);
+    d3.select("#numResults")
+      .text(r.length + " institutions match the criteria");
+    setTable(r);
+  } else {
+    d3.select("tbody").selectAll("tr").remove();  
+    d3.select("#numResults")
+      .text("");
+  }
+}
+
+function setTable(activeRows) { 
+  d3.select("tbody").selectAll("tr").remove();
+
+  var rows = d3.select("tbody").selectAll("tr")
+    .data(activeRows)
+    .enter()
+    .append("tr")
+    .style("background-color", function(d,i) {
+      return (i%2 == 0) ? "white" : "#F0F0F0";
+    });
+
+  // console.log(rows)
+
+  rows.selectAll("td")
+    .data(function(d, i) { return d; })
+    .enter()
+    .append("td")
+    .attr("class", function(d, i) {
+      return (i > 1) ? "centeredTd" : null;
+    })
+    .style("background-color", function(d, i) {  return color(d); })    
+    .text(function(d, i) {
+      return (d == "101") ? "-" : d;
+    })
 }
 
 jQuery.fn.centerWidth = function () {

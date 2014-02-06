@@ -3,107 +3,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>Shanghai Ranking</title>
+    <link rel="stylesheet" type="text/css" href="../siris.css">
     <style type="text/css">
 
-svg {
-  font: 10px sans-serif;
-}
-
-a {
-  text-decoration: none;
-  color: steelblue;
-}
-
-.background path {
-  fill: none;
-  stroke: #ccc;
-  stroke-opacity: .4;
-  shape-rendering: crispEdges;
-}
-
-.foreground path {
-  fill: none;
-  /*stroke: steelblue;*/
-  stroke-opacity: .7;  
-}
-
-.active {
-  fill: none;
-  stroke: red;
-  stroke-opacity: .7;
-}
-
-.brush .extent {
-  fill-opacity: .3;
-  stroke: #fff;
-  shape-rendering: crispEdges;
-}
-
-.axis line, .axis path {
-  fill: none;
-  stroke: #ccc;
-  shape-rendering: crispEdges;
-}
-
-.axis text {
-  text-shadow: 0 1px 0 #fff;
-  cursor: move;
-}
-
-#results {
-  width: 960px;
-  
-}
-
-#container {
- position: absolute;
-}
-
-#tooltip {
-  background-color: "#ffffff";
-  opacity:0.7;
-  position: absolute;
-}
-
-table {
-  padding-bottom: 30px;
-  font-size: 12px;
-  /*border: 1px solid black;*/
-}
-
-table td {
-  /*width: 250px;*/
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.centeredTd 
-{
-    text-align:center; 
-    vertical-align:middle;
-    color: #343434;
-    width: 35px;
-    /*font-size: 15px;    */
-}
-
-footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:20px;   /* Height of the footer */
-   background: #eee;
-}
-
-body {
-  font: 14px sans-serif;
-}
-
-#logo {
-  width: 100px;
-  height: 62px;
-  margin-top: 13px;
-  float: right;
-}
 
     </style>
     <!-- jQuery -->
@@ -307,7 +209,7 @@ d3.csv("shanghai_ranking.csv", function(data) {
       })
       .on("mousemove", function(){
         // d3.event must be used to retrieve pageY and pageX. While this is not needed in Chrome, it is needed in Firefox
-        tooltip.style("top", (d3.event.pageY-8)+"px").style("left",(d3.event.pageX+10)+"px");        
+        tooltip.style("top", (d3.event.pageY - 20)+"px").style("left",(d3.event.pageX )+"px");        
       })
       .on("mouseout", function(){
           tooltip.style("visibility", "hidden");
@@ -510,7 +412,7 @@ function setTable(activeRows) {
     .attr("class", function(d, i) {
       return (i > 1) ? "centeredTd" : null;
     })
-    .style("background-color", function(d, i) {  return color(d); })    
+    .style("background-color", function(d, i) {  return color(d); })
     .text(function(d, i) {
       return (d == "101") ? "-" : d;
     })

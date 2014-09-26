@@ -1,5 +1,4 @@
 Shanghai Ranking evolution
 =========
 
-This project has been moved to the Siris Academic account.
-https://github.com/sirisacademic/Shanghai-Ranking-Evolution
+This project uses a parallel coordinates visualization to show the evolution of the different universities that appear in the Shanghai (ARWU) ranking

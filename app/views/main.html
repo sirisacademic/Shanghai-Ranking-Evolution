@@ -1,0 +1,51 @@
+<div class="container">
+
+  <div class="instructions">
+    <p>
+        Each line on the visualization represents the evolution of a University in the <a href="http://en.wikipedia.org/wiki/Academic_Ranking_of_World_Universities">Shanghai Ranking</a>.<br>
+         Drag the mouse through any of the axes to get a list of the institutions that match the filter. Use as many filters as you want!!
+      </p>
+  </div>
+
+  <div class="row">
+    
+    <div class="col-xs-4"> 
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle btn-sm btn-gray" data-toggle="dropdown">
+          <span class="caret"></span> Show
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>      
+        <button type="button" class="btn btn-sm btn-default" data-toggle="dropdown"  style="width:220px" id="countriesButton">All Countries</button>
+        <ul class="dropdown-menu scrollable-menu" role="menu" id="countriesCombo">        
+          <li><a value="All">All Countries</a></li>
+          <li class="divider"></li>
+        </ul>
+      </div>   
+
+    </div>
+    <div class="col-xs-4 col-centered">
+      <button type="submit" class="btn btn-default btn-sm center-block" id="clearBrushesBtn" style="width:180px" disabled>Clear all filters</button>    
+    </div>
+    <div class="col-xs-4">
+     <div class="input-group input-group-sm navbar-right" style="width:300px">      
+        <input type="text" class="form-control" placeholder="University name" id="input_school">
+        <span class="input-group-addon" id="mag_glass"><span class="glyphicon glyphicon-search"></span></span>
+      </div>
+    </div>
+  </div>
+  <div class="row parallel-wrapper" >  
+    <parallel data='data' dimensions="dimensions" height="height" width="width" margin="margin" institutionfieldname="name" countryfieldname="country_field_name" tooltipfields="tooltip_fields" parallelproperties="parallelproperties"></parallel>
+  </div>
+
+  <div class="row">  
+    <div class="panel-heading" id="numResults"></div>    
+  </div>  
+
+  <div class="container row">
+      <tableview table_data="table_data" first-column-size="22" margin="margin" columns-properties="$root.COLUMN_PROPERTIES" color-direction="'asc'">
+      </tableview>
+  </div>
+
+  <div id="tooltip"></div>
+  
+</div>

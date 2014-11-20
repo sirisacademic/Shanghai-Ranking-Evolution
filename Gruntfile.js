@@ -32,7 +32,7 @@ module.exports = function (grunt) {
       'process-html-template': {
           'options': {
               'data': {
-                  'now': grunt.template.today('mmmm dd, yyyy')
+                  'now': grunt.template.today('dd/mm/yyyy')
               }
           },
           'files': {

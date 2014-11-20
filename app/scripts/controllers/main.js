@@ -38,7 +38,7 @@ angular.module('arwuApp')
         curvedPath: true,
         fgColor: 'steelblue'  //color for the foreground lines
       },
-      draggableAxis:true,
+      draggableAxis:false,
       axisDirection: 'asc', //direction of the color scale: asc (0, bottom - 100, top), desc (100, bottom - 0, top)
       yDomain:[0, 100]    //[bottom, top] (cartesian axis)
     }

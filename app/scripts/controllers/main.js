@@ -32,6 +32,17 @@ angular.module('arwuApp')
     $scope.$root.COLUMN_PROPERTIES.addColumnProperties(new ColumnProperties($scope.$root.TABLE_COLUMN_2012,1,undefined, "center"));
     $scope.$root.COLUMN_PROPERTIES.addColumnProperties(new ColumnProperties($scope.$root.TABLE_COLUMN_2013,1,undefined, "center"));
 
+  $scope.parallelproperties = {
+      lineProperties:
+      {
+        curvedPath: true,
+        fgColor: 'steelblue'  //color for the foreground lines
+      },
+      draggableAxis:true,
+      axisDirection: 'asc', //direction of the color scale: asc (0, bottom - 100, top), desc (100, bottom - 0, top)
+      yDomain:[0, 100]    //[bottom, top] (cartesian axis)
+    }
+
     // Extract the list of scope.dimensions and create a scale for each.
     $scope.dimensions = d3.range(2003,2014);
     var yearData;

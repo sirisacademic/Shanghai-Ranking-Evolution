@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('arwuApp')
-  .controller('MainCtrl', function ($scope, $compile, $http, data, $StringUtils) {    
+  .controller('MainCtrl', function ($scope, $compile, $http, data, $StringUtils, $location, $timeout) {    
 
     $scope.$root.TABLE_COLUMN_NAME = "University";
     $scope.$root.TABLE_COLUMN_COUNTRY = "Country";    
@@ -57,8 +57,6 @@ angular.module('arwuApp')
       return a["2013"] - b["2013"];
     });
 
-    
-
     function getMaxValueFromMetric(metric) {
       return d3.max(data, function(d) {
           return d3.max(d3.values(d.data).map(function(p) {    
@@ -97,6 +95,7 @@ angular.module('arwuApp')
     {
       updateDataFromFiltersValues($scope.$FILTER_BY_BRUSH, data);      
     });
+
 
 
     function updateDataFromFiltersValues(filterType, filterData)
@@ -153,7 +152,6 @@ angular.module('arwuApp')
         .on("click", function(d) {
           $scope.selectedCountry = d3.select(this).selectAll("a").text().trim()
           d3.select("#countriesButton").text($scope.selectedCountry);
-          $scope.selectedCountry = $scope.selectedCountry;
           updateDataFromFiltersValues($scope.$FILTER_BY_COUNTRY);
         })
 
@@ -229,4 +227,72 @@ angular.module('arwuApp')
         } catch(err) {                    
         } 
       });
+
+    $timeout(function()
+    {
+        ////////////////////////////////////////////////////////////////////////
+        //search for filter params coming from the URL  
+        var params = {};
+        var dims = $scope.$root.COLUMN_PROPERTIES.columns.map(function(column)
+        {
+          return column.header.toLowerCase();
+        });
+
+        angular.forEach($location.search(), function(value,key)
+        {
+          if(dims.indexOf(key) > -1)
+          {
+            //check if param is a single value or a range
+            //check if the param is well formetted "bottomValue,topValue"
+            var values = value.split(":")
+            if(values.length == 1)
+            {
+              //param is Country or Uni name
+              if(key.toLowerCase() == $scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase() && 
+                  $scope.countries
+                    .map( function(d) { return d.toLowerCase()})
+                    .some(function(d) { return d.localeCompare(value.toLowerCase()) == 0; })
+              )
+                params[key.toLowerCase()] = value;        
+              else if(key.toLowerCase() == $scope.$root.TABLE_COLUMN_NAME.toLowerCase() && 
+                  data.map(function(d) { return d[$scope.$root.TABLE_COLUMN_NAME].toLowerCase(); })
+                  .some(function(d) { return d.indexOf(value.toLowerCase()) > -1; })
+              )
+                params[key.toLowerCase()] = value;
+            }
+            else if(values.length == 2)
+            {
+              //if filter is not valid, remove it. Otherwise store it as array of values
+              if(values.every(function(e) { return parseInt(e) != NaN; }) && parseInt(values[0]) < parseInt(values[1]))
+                params[key] = values.map(function(e) { return parseInt(e);});
+              else
+                console.log("not valid");
+            }
+          }
+        });
+        console.log(params);
+
+        //filter with these valid params
+        if( params.hasOwnProperty($scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase()) )
+        {
+          $scope.selectedCountry =  
+            $scope.countries[
+              $scope.countries
+                .map( function(d) { return d.toLowerCase()})
+                .indexOf(params[$scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase()])
+            ];
+          d3.select("#countriesButton").text($scope.selectedCountry);
+          updateDataFromFiltersValues($scope.$FILTER_BY_COUNTRY);  
+        }
+
+        if( params.hasOwnProperty($scope.$root.TABLE_COLUMN_NAME.toLowerCase()) )
+        {
+          $scope.filterText = params[$scope.$root.TABLE_COLUMN_NAME.toLowerCase()];
+          updateDataFromFiltersValues($scope.$FILTER_BY_TEXT);
+        }
+
+    }, 1000); //end timeout
+
+
+
   });

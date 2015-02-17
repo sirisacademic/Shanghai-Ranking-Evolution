@@ -96,6 +96,14 @@ angular.module('arwuApp')
       updateDataFromFiltersValues($scope.$FILTER_BY_BRUSH, data);      
     });
 
+    $scope.$on('onParallelBrushEndEvent', function(event,data)
+    {
+      data.actives.forEach(function(dim, i)
+      {
+        $location.search(dim, Math.round(data.extents[i][0]).toString() + ":" + Math.round(data.extents[i][1]).toString());
+      });
+    });
+
 
 
     function updateDataFromFiltersValues(filterType, filterData)
@@ -152,7 +160,9 @@ angular.module('arwuApp')
         .on("click", function(d) {
           $scope.selectedCountry = d3.select(this).selectAll("a").text().trim()
           d3.select("#countriesButton").text($scope.selectedCountry);
-          updateDataFromFiltersValues($scope.$FILTER_BY_COUNTRY);
+          updateDataFromFiltersValues($scope.$FILTER_BY_COUNTRY);          
+          $location.search('country', $scope.selectedCountry);
+          $scope.apply();
         })
 
     //enable filtering by name
@@ -161,8 +171,10 @@ angular.module('arwuApp')
         if(this.value == undefined)
           return;
         $scope.filterText = this.value;      
-        updateDataFromFiltersValues($scope.$FILTER_BY_TEXT);
-      })
+        updateDataFromFiltersValues($scope.$FILTER_BY_TEXT);   
+        $location.search('university', this.value);
+        $scope.apply();
+      });
 
 
     /////////////
@@ -214,7 +226,6 @@ angular.module('arwuApp')
       });
     };
         
-
     $scope.tooltip = d3.select("#tooltip")
             .style("visibility", "hidden")
             .style("background-color", "#ffffff");
@@ -224,7 +235,12 @@ angular.module('arwuApp')
       .on("click", function(d) {
         try {
           $scope.$emit('clearBrushes');
-        } catch(err) {                    
+          $scope.dimensions.forEach(function(dim)
+          {
+            if(params && params.get(dim) != undefined)
+              $location.search(dim, null);
+          });
+        } catch(err) {
         } 
       });
 
@@ -232,7 +248,7 @@ angular.module('arwuApp')
     {
         ////////////////////////////////////////////////////////////////////////
         //search for filter params coming from the URL  
-        var params = {};
+        var params = d3.map();
         var dims = $scope.$root.COLUMN_PROPERTIES.columns.map(function(column)
         {
           return column.header.toLowerCase();
@@ -253,46 +269,57 @@ angular.module('arwuApp')
                     .map( function(d) { return d.toLowerCase()})
                     .some(function(d) { return d.localeCompare(value.toLowerCase()) == 0; })
               )
-                params[key.toLowerCase()] = value;        
+                params.set(key.toLowerCase(), value);
               else if(key.toLowerCase() == $scope.$root.TABLE_COLUMN_NAME.toLowerCase() && 
                   data.map(function(d) { return d[$scope.$root.TABLE_COLUMN_NAME].toLowerCase(); })
                   .some(function(d) { return d.indexOf(value.toLowerCase()) > -1; })
               )
-                params[key.toLowerCase()] = value;
+                params.set(key.toLowerCase(), value);
             }
             else if(values.length == 2)
             {
               //if filter is not valid, remove it. Otherwise store it as array of values
               if(values.every(function(e) { return parseInt(e) != NaN; }) && parseInt(values[0]) < parseInt(values[1]))
-                params[key] = values.map(function(e) { return parseInt(e);});
+                params.set(key, values.map(function(e) { return parseInt(e);}));
               else
-                console.log("not valid");
+                console.log("url parameter not valid");
             }
           }
         });
-        console.log(params);
 
         //filter with these valid params
-        if( params.hasOwnProperty($scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase()) )
+        //by country
+        if( params.get($scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase()) != undefined )
         {
           $scope.selectedCountry =  
             $scope.countries[
               $scope.countries
                 .map( function(d) { return d.toLowerCase()})
-                .indexOf(params[$scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase()])
+                .indexOf(params.get($scope.$root.TABLE_COLUMN_COUNTRY.toLowerCase()))
             ];
           d3.select("#countriesButton").text($scope.selectedCountry);
           updateDataFromFiltersValues($scope.$FILTER_BY_COUNTRY);  
         }
 
-        if( params.hasOwnProperty($scope.$root.TABLE_COLUMN_NAME.toLowerCase()) )
+        //by university name
+        if( params.get($scope.$root.TABLE_COLUMN_NAME.toLowerCase()) != undefined)
         {
-          $scope.filterText = params[$scope.$root.TABLE_COLUMN_NAME.toLowerCase()];
+          $scope.filterText = params.get($scope.$root.TABLE_COLUMN_NAME.toLowerCase());
+          d3.select("#input_school").attr('value', $scope.filterText);
           updateDataFromFiltersValues($scope.$FILTER_BY_TEXT);
         }
 
+        //by year dimensions
+        $scope.dimensions.forEach(function(dim)
+        {
+          var dims = []
+          if(params.get(dim) != undefined)
+          {
+              dims.push({"dim":dim, "values":params.get(dim)});
+          }
+
+          if(dims.length > 0)
+            $scope.$emit('createBrush', dims); 
+        });      
     }, 1000); //end timeout
-
-
-
   });

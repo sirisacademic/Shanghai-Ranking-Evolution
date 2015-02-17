@@ -13,6 +13,7 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
+        reloadOnSearch: false,
         resolve: {
           data: ['$http', function($http) {
             return $http.get('data/shanghai_ranking.csv').then(function(response) {

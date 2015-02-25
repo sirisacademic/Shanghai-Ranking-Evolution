@@ -1,3 +1,6 @@
+<!-- this div is hidden if there are no filters via URL or until these params are applied -->
+<div class="fadeMe" ng-show="hide_interface"></div>
+
 <div class="container">
 
   <div class="instructions">
@@ -21,19 +24,20 @@
           <li class="divider"></li>
         </ul>
       </div>   
-
     </div>
+    
     <div class="col-xs-4 col-centered">
       <button type="submit" class="btn btn-default btn-sm center-block" id="clearBrushesBtn" style="width:180px" disabled>Clear all filters</button>    
     </div>
     <div class="col-xs-4">
-     <div class="input-group input-group-sm navbar-right" style="width:300px">      
+      <div class="input-group input-group-sm navbar-right" style="width:300px">      
         <input type="text" class="form-control" placeholder="University name" id="input_school">
         <span class="input-group-addon" id="mag_glass"><span class="glyphicon glyphicon-search"></span></span>
       </div>
     </div>
   </div>
-  <div class="row parallel-wrapper" >  
+
+  <div class="row parallel-wrapper">  
     <parallel data='data' dimensions="dimensions" height="height" width="width" margin="margin" institutionfieldname="name" countryfieldname="country_field_name" tooltipfields="tooltip_fields" parallelproperties="parallelproperties"></parallel>
   </div>
 
